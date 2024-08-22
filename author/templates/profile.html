@@ -1,0 +1,150 @@
+
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block title %}
+{{ type }}
+{% endblock title %}
+
+
+
+
+{% block content %}
+
+
+<div class="row py-5 px-4">
+    <div class="col-xl-11 col-md-11 col-sm-10 mx-auto">
+        <!-- Profile widget -->
+        <div class="bg-white shadow rounded overflow-hidden">
+            <div class="px-4 pt-0 pb-4 bg-dark">
+                <div class="media align-items-end profile-header">
+                    <div class="profile mr-3">
+                       <div class="">
+                            {% if user_data.user_profile.image %}
+                                
+                                <img src="{{ user_data.user_profile.image.url }}" alt="Profile Image" width="130" height="140" class="rounded mb-2 img-thumbnail">
+                            {% else %}
+                                
+                                <img src="{% static 'images/profile_no_image.jpg' %}" alt="Default Profile Image" width="130" height="140" class="rounded mb-2 img-thumbnail">
+                            {% endif %}
+                    
+                       </div>
+                       <div style="margin-top: -46px; margin-left: -5px; ">
+                            <b type="button"  class="p-2 d-inline rounded-circle btn btn-light" data-toggle="modal" data-target="#editImageModal">
+                                <svg style='height: 25px;' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M149.1 64.8L138.7 96H64C28.7 96 0 124.7 0 160V416c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V160c0-35.3-28.7-64-64-64H373.3L362.9 64.8C356.4 45.2 338.1 32 317.4 32H194.6c-20.7 0-39 13.2-45.5 32.8zM256 192a96 96 0 1 1 0 192 96 96 0 1 1 0-192z"/></svg>
+                            </b>
+                       </div>
+                        
+                        <!-- Add an "Edit Image" button -->
+                        
+
+                        <div class="pb-3 d-block d-md-none text-white">
+                            <h4 class="mt-0 mb-0">{{user_data.first_name}} {{user_data.last_name}}</h4>
+                            <p class="small">
+                                <i class="fa fa-map-marker "></i>@{{user_data.username}}
+                            </p>
+                        </div>
+                        
+                        
+
+                        <a href="{% url 'edit_profile' %}" class="btn btn-dark btn-sm btn-block">Edit profile</a>
+                        
+                        
+            
+                    </div>
+                    <div class="media-body mb-5 text-white d-none d-md-block">
+                        <h4 class="mt-0 mb-0">{{user_data.first_name}} {{user_data.last_name}}</h4>
+                        <p class="small mb-4">
+                            <i class="fa fa-map-marker "></i>@{{user_data.username}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Modal for Image Editing -->
+            <div class="modal fade" id="editImageModal" tabindex="-1" role="dialog" aria-labelledby="editImageModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="editImageModalLabel">Edit Profile Image</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <!-- Add your image upload form here -->
+                            <form method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                {{ edit_image.as_p }}
+                                <button type="submit" class="btn btn-primary">Save Changes</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            
+            <br>
+            <br>
+            <br>
+            <div class="row mt-5">
+                <div class="col-12 col-lg-3">
+                    <div class=" py-3">
+                        <p  class="d-block ps-3 fs-4 fw-bold" > Your Balance: {{user_data.user_account.balance}}</p>
+                        <a class="text-decoration-none d-block ps-3 btn btn-dark mx-3" href="{% url 'deposit' %}">Deposit Money</a>
+                        <a class="text-decoration-none d-block mt-2 ps-3" href="{% url 'password_change' %}">Change Password</a>
+                        <a class="text-decoration-none d-block ps-3" href="{% url 'logout' %}">Logout</a>
+                        
+                    </div>
+                </div>
+                <div class="col-12 col-lg-9 pb-5">
+                    <h4  class="text-center bg-secondary text-white d-inline d-flex m-auto p-2 px-3 rounded-2 mx-1 ">Booked Hostels List</h4>
+                    <div class="col-12 col-md-10 flex-wrap d-flex ">
+                        <div class="d-flex flex-wrap gap-3 mt-3 ">
+                            {% if data %} 
+                            {% for post in data %}
+                            <div style="width: 18rem;" class="">
+                                <div class="card">
+                                    <img
+                                        class="p-1 w-100"
+                                        style=" height: 230px"
+                                        src="{{post.image.url}}"
+                                        alt=""
+                                    >
+                                    <div class="card-body">
+                                        <h5 class="card-title"> {{ post.title }}</h5>
+                                        <small>{{post.address}}</small>
+                                        <small class="card-text"> {{ post.content | truncatechars:50 }}</small>
+                                        <br>
+                                        <br>
+                                        <div class=" d-flex m-auto">
+                                            <a href="{% url 'hotel_leave' post.id %}" class="btn btn-danger d-flex m-auto ">Leave</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %} 
+                            {% else %} 
+                                No Data 
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End profile widget -->
+</div>
+</div>
+<style>
+    .profile-header {
+        transform: translateY(5rem);
+    }
+   
+    body {
+        
+        min-height: 100vh;
+    }
+</style>
+{% endblock %}

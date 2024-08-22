@@ -1,0 +1,34 @@
+
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block title %}
+BookVista - About Us
+{% endblock title %}
+
+
+
+
+{% block content %}
+<section class="container mt-5">
+    <div class="row">
+        <div class="col-lg-6 align-items-center d-flex">
+            <div>
+                <h2 class="section-heading">Contact Us</h2>
+                <p>
+                    For inquiries and assistance, please contact us at:
+                    <br>
+                    <strong>Email:</strong> admin@gmailc.com
+                    <br>
+                    <strong>Phone:</strong>
+                    +8801621969977
+                </p>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <img src="{% static 'images/contact-image.png' %}" alt="Contact Image" class="img-fluid rounded">
+        </div>
+    </div>
+</section>
+{% endblock %}

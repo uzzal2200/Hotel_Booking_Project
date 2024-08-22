@@ -1,0 +1,36 @@
+
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+Deposite 
+{% endblock title %}
+
+{% block content %} 
+
+<div class="m-5">
+    <h1> Deposite </h1>
+</div>
+
+<div class="container-fluid mb-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8 col-sm-10 my-5">
+            <form method="post" class="my-5" novalidate>
+                {% csrf_token %}
+                <h1>{{ type }}</h1>
+                <!-- {{ form | crispy }} -->
+                {% for fm in form %}
+                <div class="form-group">
+                    {{ fm.label_tag }}
+                    {{ fm }}
+                    <small class="text-danger">{{ fm.errors | striptags }}</small>
+                </div>
+                {% endfor %}
+                <br>
+                <button class="btn btn-primary" type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

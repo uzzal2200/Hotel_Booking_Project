@@ -1,0 +1,45 @@
+
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block title %}
+{{ type }}
+{% endblock title %}
+
+
+
+
+{% block content %} 
+
+<div class="container my-5">
+    <div class="alert alert-success" role="alert">
+        <h4 class="alert-heading">Registration Successful!</h4>
+        <p>Your user registration is successful. Please check your email and click on the verification link to activate your account.</p>
+        <hr>
+        <p class="mb-0">If you encounter any issues, please contact our support team.</p>
+        <button class="btn btn-primary mt-3" onclick="openEmailClient()">Open Email Client</button>
+    </div>
+    <div class=" d-flex justify-content-center ">
+        <img src="{% static 'images/ver-emil.png' %}" class="img-fluid ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|}" alt="">
+    </div>
+</div>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+        integrity="sha384-Lz9ATVzuzXdI8wwM+skKbmlV1Y+EXcDSv2ajAH6/8bAsjFuCZSmKbSSUnQlmh/jp"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-Jh0kgOi1eE8n+Z7Q8J2SH6r7C9bmTaJ2MfRD25OGMq9h5SHrDAaAWWi8HrtzIqJC"
+        crossorigin="anonymous"></script>
+
+<script>
+    function openEmailClient() {
+        window.location.href = 'mailto:your@email.com?subject=User%20Registration%20Verification&body=Click%20on%20the%20verification%20link%20in%20your%20email%20to%20activate%20your%20account.';
+    }
+</script>
+
+{% endblock %}

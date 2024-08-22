@@ -1,0 +1,38 @@
+
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block title %}
+BookVista - About Us
+{% endblock title %}
+
+
+
+
+{% block content %} 
+
+<section class="container my-5">
+    <div class="row">
+        <div class="col-lg-6">
+            <h2 class="section-heading">Welcome to Hotel</h2>
+            <p class="text-justify">
+                At BookVista, we redefine the art of hospitality. Our commitment is to provide an extraordinary experience for our guests, blending comfort, style, and innovation.
+            </p>
+            <p class="text-justify">
+                Discover a world where each stay is a journey and every moment is an opportunity to create lasting memories. Our dedicated team ensures that your time with us is seamless, from the moment you step through our doors.
+            </p>
+            <p class="text-justify">
+                Planning your stay is effortless with our user-friendly online booking system. Explore room options, check availability, and secure your reservation with just a few clicks. Take advantage of exclusive offers and packages to make your stay even more rewarding.
+            </p>
+            <p class="text-justify">
+                Indulge in our stylish and well-appointed rooms and suites, each thoughtfully designed to ensure your utmost comfort. Enjoy breathtaking views of the city skyline, relax in plush bedding, and take advantage of modern amenities to make your stay truly exceptional.
+            </p>
+        </div>
+        <div class="col-lg-6">
+            <img src="{% static 'images/hotel-image.jpg' %}" alt="BookVista Hotel" class="img-fluid rounded">
+        </div>
+    </div>
+</section>
+
+{% endblock %}
